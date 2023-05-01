@@ -1,0 +1,96 @@
+const form = document.querySelector('form');
+
+const nameInput = document.querySelector('#name');
+
+
+
+form.addEventListener('submit', (event) => {
+
+  event.preventDefault();
+
+  const name = nameInput.value;
+
+  console.log(`Hello, ${name}!`);
+
+});
+
+
+
+class Chat {
+
+  constructor(user, message, timestamp) {
+
+    this.user = user;
+
+    this.message = message;
+
+    this.timestamp = timestamp;
+
+  }
+
+
+
+  displayMessage() {
+
+    const date = new Date(this.timestamp);
+
+    const time = date.toLocaleTimeString();
+
+    return `${this.user} (${time}): ${this.message}`;
+
+  }
+
+}
+
+const chatInterface = {
+
+  user: 'string',
+
+  message: 'string',
+
+  timestamp: 'number',
+
+  displayMessage: 'function',
+
+};
+
+
+
+fetch('/api/chat', {
+
+  method: 'POST',
+
+  headers: {
+
+    'Content-Type': 'application/json'
+
+  },
+
+  body: JSON.stringify({
+
+    room: 'general',
+
+    message: 'Hello, world!'
+
+  })
+
+})
+
+.then(response => {
+
+  if (!response.ok) {
+
+    throw new Error('Network response was not ok');
+
+  }
+
+  console.log('Message sent successfully');
+
+})
+
+.catch(error => {
+
+  console.error('There was a problem sending the message:', error);
+
+});
+
